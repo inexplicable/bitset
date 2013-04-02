@@ -1,6 +1,6 @@
 var BitSet = require("../index.js"),
     _ = require("underscore"),
-    assert = require("assert");
+    should = require("should");
 
 describe("BitSet", function(){
 
@@ -14,7 +14,7 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 1){
                 bits.set(i);
             }
-            console.log("set 1,000,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
     });
@@ -30,7 +30,7 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 1){
                 bits.set(i);
             }
-            console.log("set 1,000,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
 
@@ -39,7 +39,7 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 2){
                 bits.clear(i);
             }
-            console.log("clear 500,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
     });
@@ -54,7 +54,7 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 1){
                 bits.set(i);
             }
-            console.log("set 1,000,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
 
@@ -63,7 +63,7 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 2){
                 bits.clear(i);
             }
-            console.log("clear 500,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
 
@@ -71,9 +71,9 @@ describe("BitSet", function(){
         it("should get 1 million times fast", function(done){
             var begin = new Date().getTime();
             for(var i = 0; i < 1000000; i += 1){
-                assert.ok(i & 1 ? bits.get(i) : !bits.get(i));
+                (i & 1 ? bits.get(i) : !bits.get(i)).should.be.ok;
             }
-            console.log("get 1,000,000 using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(700);
             done();
         });
     });
@@ -88,7 +88,7 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 1){
                 bits.set(i);
             }
-            console.log("set 1,000,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
 
@@ -97,14 +97,14 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 2){
                 bits.clear(i);
             }
-            console.log("clear 500,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
 
         it("should calculate cardinality fast", function(done){
             var begin = new Date().getTime();
-            assert.equal(500000, bits.cardinality());
-            console.log("cardinality using " + (new Date().getTime() - begin) + "ms\n");
+            (bits.cardinality()).should.equal(500000);
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
     });
@@ -119,7 +119,7 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 1){
                 bits.set(i);
             }
-            console.log("set 1,000,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
 
@@ -128,16 +128,16 @@ describe("BitSet", function(){
             for(var i = 0; i < 1000000; i += 2){
                 bits.clear(i);
             }
-            console.log("clear 500,000 times using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(50);
             done();
         });
 
         it("should nextSetBit fast", function(done){
             var begin = new Date().getTime();
             for(var i = 0; i < 1000000; i += 1){
-                assert.equal(i & 1 ? i : i + 1, bits.nextSetBit(i));
+                (bits.nextSetBit(i)).should.equal(i & 1 ? i : i + 1);
             }
-            console.log("nextSetBit 1,000,000 using " + (new Date().getTime() - begin) + "ms\n");
+            (new Date().getTime() - begin).should.be.below(700);
             done();
         });
     });
