@@ -149,7 +149,7 @@ BitSet.prototype.xor = function(set) {
  * it fast skips 0 value word as #cardinality does, this is esp. important because of our usage, after series of #and operations
  * it's highly likely that most of the words left are zero valued, and by skipping all of such, we could locate the actual bit set much faster.
  * @param pos
- * @return {*}
+ * @return {number}
  */
 BitSet.prototype.nextSetBit = function(pos){
     //the very first word
@@ -173,7 +173,39 @@ BitSet.prototype.nextSetBit = function(pos){
                     return (next << SHIFTS_OF_A_WORD) + bit;
                 }
             }
-            //shouldn't ever come here
+            assert.fail(-1, nextWord, "it should have found some bit in this word");
+        }
+    }
+    return -1;
+};
+
+/**
+ * An reversed lookup compared with #nextSetBit
+ * @param pos
+ * @returns {number}
+ */
+BitSet.prototype.prevSetBit = function(pos){
+    //the very first word
+    var prev = whichWord(pos),
+        words = this._words,
+        firstWord = words[prev],
+        bit;
+    if(firstWord){
+        for(bit = pos & 31; bit >=0; bit -= 1){
+            if((firstWord & mask(bit))){
+                return (prev << SHIFTS_OF_A_WORD) + bit;
+            }
+        }
+    }
+    for(prev = prev - 1; prev >= 0; prev -= 1){
+        var prevWord = words[prev];
+        if(prevWord){
+            for(bit = BITS_OF_A_WORD - 1; bit >= 0; bit -= 1){
+                if((prevWord & mask(bit)) !== 0){
+                    return (prev << SHIFTS_OF_A_WORD) + bit;
+                }
+            }
+            assert.fail(-1, prevWord, "it should have found some bit in this word");
         }
     }
     return -1;
