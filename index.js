@@ -188,11 +188,11 @@ BitSet.prototype.prevSetBit = function(pos){
     //the very first word
     var prev = whichWord(pos),
         words = this._words,
-        firstWord = words[prev],
+        lastWord = words[prev],
         bit;
-    if(firstWord){
+    if(lastWord){
         for(bit = pos & 31; bit >=0; bit -= 1){
-            if((firstWord & mask(bit))){
+            if((lastWord & mask(bit))){
                 return (prev << SHIFTS_OF_A_WORD) + bit;
             }
         }
