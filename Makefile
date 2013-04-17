@@ -14,7 +14,7 @@ test:
 
 test-part:
 	export NODE_PATH=./node_modules;\
-	node_modules/.bin/mocha test/*.js --reporter junit --output ../../reports
+	node_modules/.bin/mocha test/*.js --reporter dot --output ../../reports
 
 unpublish:
 	npm --registry $(REGISTRY) unpublish

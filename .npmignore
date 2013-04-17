@@ -1,0 +1,8 @@
+test.js
+test
+testing
+lib-cov
+*.sock
+*.pid
+*.log
+node_modules
