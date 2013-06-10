@@ -176,4 +176,39 @@ describe("BitSet", function(){
             done();
         });
     });
+    
+    describe("#toString", function(){
+        
+        var i = 0;
+        var bits = new BitSet();
+
+        it("should set 1 million times fast", function(done){
+            var begin = new Date().getTime();
+            for(var i = 0; i < 1000000; i += 1){
+                bits.set(i);
+            }
+            (new Date().getTime() - begin).should.be.below(50);
+            done();
+        });
+
+        it("should clear half a million times fast", function(done){
+            var begin = new Date().getTime();
+            for(var i = 0; i < 1000000; i += 2){
+                bits.clear(i);
+            }
+            (new Date().getTime() - begin).should.be.below(50);
+            done();
+        });
+
+        it("should generate toString fast", function(done){
+            bits.toString(16).should.be.ok;
+            bits.toString(10).should.be.ok;
+            bits.toString(10).should.equal(bits.toString(10));
+            bits.toString(8).should.be.ok;
+            console.log(bits.toString(16));
+            console.log(bits.toString(10));
+            console.log(bits.toString(8));
+            done();
+        });
+    });
 });
